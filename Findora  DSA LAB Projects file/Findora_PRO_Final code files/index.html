@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="en"><head><script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20260824-05-39521aa","C":{"Abril Fatface":"YACgEZbkUVE,0","Alfa Slab One":"YACgEYS9sJU,0","Anton":"YACgEcYqQ-A,0","Archivo":"YAHO2-t-jNE,0","Arial":"YAGyDvJ_4Ts,0","Bebas Neue":"YACgESME5ew,0","Bricolage Grotesque":"YAFyMcdwzpc,0","Canva Sans":"YAFLd8sKbwc,2","Caveat":"YALBs2ploWQ,0","Comic Sans MS":"YAHO2VMiyZo,0","Cormorant Garamond":"YAFdJhX-538,0","Courier New":"YAGzXiGs0_8,0","DM Sans":"YAD1aU3sLnI,0","DM Serif Display":"YAD1aYG82rc,0","Forum":"YACgEcnnqB4,0","Fraunces":"YAEul-FRQw4,0","Georgia":"YAGzXkO0pEM,0","Helvetica Neue":"YAFcf6CtJfI,0","Impact":"YAFcfnjI7Vk,0","Inter":"YAFdJvSyp_k,3","Iowan Old Style":"YAGNIFa8j9o,0","Jacques Francois":"YAHO2a5g66Q,0","JetBrains Mono":"YAFdJksXcAk,0","Libre Baskerville":"YACgEUFdPdA,0","Manrope":"YAHO2b2feC4,0","Merriweather":"YACgEXvHxxs,0","Montserrat":"YADLjI9qxTA,0","Nunito":"YACgEX8C5Gg,0","Oleo Script":"YACgEQQ14jI,0","Phantom Sans":"YAHO2E8Pb88,0","Playfair Display":"YACgEYmuCJE,0","Poppins":"YAFdJjbTu24,1","Press Start 2P":"YAFyGr-8pmQ,0","Quicksand":"YADWjpfPmdk,0","Raleway":"YACgEVg3xZg,0","Segoe UI":"YAHNdRD1Klw,0","Source Sans 3":"YAG4lO1Mj10,0","Spectral":"YAHO2rVUHIM,0","Times New Roman":"YAGzXW3gftg,0","Times":"YAGzXW3gftg,0","Ubuntu":"YACgERDU--Q,0","Work Sans":"YAGXhLOKv44,0","Yellowtail":"YACgEYG4kG4,0","ui-monospace":"YADlN8CFZ8Q,0","ui-sans-serif":"YACkoN-xg4g,0"}}');</script><script src="/_sdk/50d846425a1e5082.telemetry_sdk.js" integrity="sha512-Otbex+ztlVbcEGql0rXGd/3E3ee/hqAntg6DeuUEMG6pIPbXGOSvZbFZVzknAXi1tH/itQ+ijEhOTr2aWj6CXg=="></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Findora</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&amp;family=Playfair+Display:wght@700;800&amp;display=swap" rel="stylesheet">
+  <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 50:'#f0f7ff', 100:'#e0efff', 200:'#b9dfff', 300:'#7cc4ff', 400:'#36a5ff', 500:'#0c87eb', 600:'#0969c9', 700:'#0754a3', 800:'#0b4786', 900:'#0f3a6f' },
+                        accent: { 400:'#34d399', 500:'#10b981', 600:'#059669' },
+                        dark: { 800:'#1a1f2e', 900:'#0f1219' }
+                    }
+                }
+            }
+        }
+    </script>
+  <style>
+        * { font-family: 'Work Sans', sans-serif; }
+        .font-display { font-family: 'Playfair Display', serif; }
+        .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.12); }
+        .glass-light { background: rgba(255,255,255,0.7); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.3); }
+        .page { display: none; animation: fadeIn 0.4s ease; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-12px); } }
+        .float-anim { animation: float 4s ease-in-out infinite; }
+        @keyframes countUp { from { opacity:0; transform:scale(0.8); } to { opacity:1; transform:scale(1); } }
+        .stat-num { animation: countUp 0.6s ease forwards; }
+        .card-hover { transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+        .btn-primary { background: linear-gradient(135deg, #0c87eb, #0754a3); transition: all 0.3s; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(12,135,235,0.4); }
+        .toast { position:fixed; top:24px; right:24px; z-index:9999; padding:16px 24px; border-radius:12px; color:#fff; font-weight:500; animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards; }
+        @keyframes slideIn { from { transform:translateX(100%); opacity:0; } to { transform:translateX(0); opacity:1; } }
+        @keyframes fadeOut { to { opacity:0; transform:translateX(40px); } }
+        .step-line { position:absolute; top:24px; left:24px; right:24px; height:2px; background: linear-gradient(90deg, #0c87eb, #34d399); z-index:0; }
+        input, select, textarea { transition: border-color 0.2s, box-shadow 0.2s; }
+        input:focus, select:focus, textarea:focus { border-color: #0c87eb; box-shadow: 0 0 0 3px rgba(12,135,235,0.1); }
+        .nav-link { position:relative; }
+        .nav-link::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:#0c87eb; transition: width 0.3s; }
+        .nav-link:hover::after { width:100%; }
+    </style>
+  <script src="/_sdk/a27879be4562f807.resizing_sdk.js" type="text/javascript" integrity="sha512-trcxRwz+QLrzK0Dqg95xqVRryR7WtWui2YopXyzOIr3WMde3j/xCRgT63/b/EAg7klDsAOuHzoRgoryhwm8QFw=="></script>
+ <script src="/_sdk/b3bf9e8ac58e6ad6.data_sdk.js" integrity="sha512-otc1u9NYq9Ms5Jt//7vmhrrqR5CLPr8Jdgs6741gqniClfLMcfmC+jK/cKuQdhLv6G0esJ/FzaMS9tv0T/vj/Q=="></script></head>
+ <body data-template-id="__page-root" class="w-full min-h-screen bg-dark-900 text-white overflow-x-hidden" style="background: rgb(15, 18, 25);"><!-- TOAST CONTAINER -->
+  <div id="toast-container"></div><!-- ========== LANDING PAGE ========== -->
+  <div id="page-home" class="page active"><!-- Navbar -->
+   <nav class="fixed top-0 left-0 right-0 z-50 glass">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+     <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-lg btn-primary flex items-center justify-center">
+       <i data-lucide="search" class="w-4 h-4 text-white"></i>
+      </div><span data-template-id="nav-logo" class="canva-text font-bold text-xl" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">Findora</span>
+     </div>
+     <div class="hidden md:flex items-center gap-8"><a href="#home" class="nav-link text-sm text-gray-300 hover:text-white">Home</a> <a href="#how" onclick="scrollToSection('how-section')" class="nav-link text-sm text-gray-300 hover:text-white">How It Works</a> <a href="#items" onclick="scrollToSection('found-section')" class="nav-link text-sm text-gray-300 hover:text-white">Found Items</a> <a href="#success" onclick="scrollToSection('success-section')" class="nav-link text-sm text-gray-300 hover:text-white">Success Stories</a> <button onclick="navigate('signin')" class="text-sm text-gray-300 hover:text-white">Sign In</button> <button onclick="navigate('signin')" class="btn-primary px-5 py-2 rounded-lg text-sm font-semibold text-white">Get Started</button>
+     </div><button class="md:hidden text-white" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"><i data-lucide="menu" class="w-6 h-6"></i></button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-3"><button onclick="navigate('signin')" class="block text-sm text-gray-300">Sign In</button> <button onclick="navigate('signin')" class="btn-primary px-5 py-2 rounded-lg text-sm font-semibold text-white w-full">Get Started</button>
+    </div>
+   </nav><!-- Hero -->
+   <section class="pt-32 pb-20 px-6 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-brand-900/40 via-dark-900 to-dark-900"></div>
+    <div class="absolute top-20 right-10 w-72 h-72 bg-brand-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-10 left-10 w-56 h-56 bg-accent-500/10 rounded-full blur-3xl"></div>
+    <div class="max-w-7xl mx-auto relative z-10 flex flex-col lg:flex-row items-center gap-12">
+     <div class="flex-1 text-center lg:text-left">
+      <h1 data-template-id="hero-heading" class="canva-text font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6" style="color: rgb(255, 255, 255); font-weight: 800; font-style: normal; font-size: 32px;">Lost Something? Let Findora Bring It Home.</h1>
+      <p data-template-id="hero-sub" class="canva-text text-lg text-gray-400 mb-8 max-w-xl" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 16px;">Findora connects lost belongings with the people who found them — securely, intelligently, and privately.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"><button onclick="navigate('signin')" data-template-id="hero-cta" class="canva-button btn-primary px-8 py-3.5 rounded-xl text-white font-semibold" style="background: linear-gradient(135deg, rgb(12, 135, 235), rgb(7, 84, 163)); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Get Started</button> <button onclick="scrollToSection('found-section')" data-template-id="hero-cta2" class="canva-button px-8 py-3.5 rounded-xl border border-gray-600 text-gray-300 hover:border-brand-400 hover:text-white transition" style="color: rgb(209, 213, 219); font-weight: 400; font-style: normal; font-size: 16px;">Explore Found Items</button>
+      </div>
+     </div>
+     <div class="flex-1 flex justify-center">
+      <div class="relative float-anim">
+       <div class="w-64 h-64 rounded-3xl glass flex items-center justify-center">
+        <div class="text-center">
+         <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-brand-400 to-accent-400 flex items-center justify-center">
+          <i data-lucide="link" class="w-8 h-8 text-white"></i>
+         </div>
+         <p class="text-sm text-gray-400">Connecting Lost → Found</p>
+        </div>
+       </div>
+       <div class="absolute -top-4 -right-4 w-12 h-12 rounded-xl bg-accent-500/20 flex items-center justify-center">
+        <i data-lucide="check-circle" class="w-6 h-6 text-accent-400"></i>
+       </div>
+       <div class="absolute -bottom-4 -left-4 w-12 h-12 rounded-xl bg-brand-500/20 flex items-center justify-center">
+        <i data-lucide="shield" class="w-6 h-6 text-brand-400"></i>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!--  Stats -->
+   <section class="py-16 px-6">
+    <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
+     <div class="glass rounded-2xl p-6 text-center card-hover">
+      <p class="text-3xl font-bold text-white stat-num" id="stat-1">1,248</p>
+      <p data-template-id="stat-1-label" class="canva-text text-sm text-gray-400 mt-2" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 16px;">Items Reported</p>
+     </div>
+     <div class="glass rounded-2xl p-6 text-center card-hover">
+      <p class="text-3xl font-bold text-brand-400 stat-num" id="stat-2">936</p>
+      <p data-template-id="stat-2-label" class="canva-text text-sm text-gray-400 mt-2" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 16px;">Potential Matches</p>
+     </div>
+     <div class="glass rounded-2xl p-6 text-center card-hover">
+      <p class="text-3xl font-bold text-accent-400 stat-num" id="stat-3">782</p>
+      <p data-template-id="stat-3-label" class="canva-text text-sm text-gray-400 mt-2" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 16px;">Items Returned</p>
+     </div>
+     <div class="glass rounded-2xl p-6 text-center card-hover">
+      <p class="text-3xl font-bold text-white stat-num" id="stat-4">94%</p>
+      <p data-template-id="stat-4-label" class="canva-text text-sm text-gray-400 mt-2" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 16px;">Successful Verification</p>
+     </div>
+    </div>
+   </section><!-- How It Works -->
+   <section id="how-section" class="py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+     <h2 data-template-id="how-heading" class="canva-text font-display text-3xl md:text-4xl font-bold text-center mb-16" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">How Findora Works</h2>
+     <div class="grid md:grid-cols-4 gap-8 relative">
+      <div class="hidden md:block step-line"></div>
+      <div class="glass rounded-2xl p-8 text-center card-hover relative z-10">
+       <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-brand-500/20 flex items-center justify-center">
+        <i data-lucide="file-plus" class="w-6 h-6 text-brand-400"></i>
+       </div>
+       <p class="text-brand-400 text-sm font-semibold mb-2">01</p>
+       <h3 data-template-id="step-1-title" class="canva-text font-semibold text-lg mb-2" style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 19px;">Report</h3>
+       <p data-template-id="step-1-desc" class="canva-text text-sm text-gray-400" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 16px;">Someone finds an item and securely reports it.</p>
+      </div>
+      <div class="glass rounded-2xl p-8 text-center card-hover relative z-10">
+       <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-brand-500/20 flex items-center justify-center">
+        <i data-lucide="git-merge" class="w-6 h-6 text-brand-400"></i>
+       </div>
+       <p class="text-brand-400 text-sm font-semibold mb-2">02</p>
+       <h3 data-template-id="step-2-title" class="canva-text font-semibold text-lg mb-2" style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 19px;">Match</h3>
+       <p data-template-id="step-2-desc" class="canva-text text-sm text-gray-400" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 16px;">Findora intelligently compares lost and found item information.</p>
+      </div>
+      <div class="glass rounded-2xl p-8 text-center card-hover relative z-10">
+       <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-accent-500/20 flex items-center justify-center">
+        <i data-lucide="shield-check" class="w-6 h-6 text-accent-400"></i>
+       </div>
+       <p class="text-accent-400 text-sm font-semibold mb-2">03</p>
+       <h3 data-template-id="step-3-title" class="canva-text font-semibold text-lg mb-2" style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 19px;">Verify</h3>
+       <p data-template-id="step-3-desc" class="canva-text text-sm text-gray-400" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 16px;">The potential owner answers verification questions.</p>
+      </div>
+      <div class="glass rounded-2xl p-8 text-center card-hover relative z-10">
+       <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-accent-500/20 flex items-center justify-center">
+        <i data-lucide="package-check" class="w-6 h-6 text-accent-400"></i>
+       </div>
+       <p class="text-accent-400 text-sm font-semibold mb-2">04</p>
+       <h3 data-template-id="step-4-title" class="canva-text font-semibold text-lg mb-2" style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 19px;">Return</h3>
+       <p data-template-id="step-4-desc" class="canva-text text-sm text-gray-400" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 16px;">After ownership verification, contact information is revealed.</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Found Items Preview -->
+   <section id="found-section" class="py-20 px-6 bg-dark-800/50">
+    <div class="max-w-6xl mx-auto">
+     <h2 data-template-id="found-heading" class="canva-text font-display text-3xl md:text-4xl font-bold text-center mb-4" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Recently Found Items</h2>
+     <p data-template-id="found-sub" class="canva-text text-center text-gray-400 mb-12" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 16px;">These items are waiting for their owners. Could one be yours?</p>
+     <div class="grid md:grid-cols-3 gap-6">
+      <div class="glass rounded-2xl overflow-hidden card-hover"><img data-template-id="found-img-1" class="canva-image w-full h-48 object-cover" loading="lazy" src="https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Sleek overhead view of modern white wireless headphones on a clean white background">
+       <div class="p-5">
+        <div class="flex items-center justify-between mb-2">
+         <h3 data-template-id="found-name-1" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 19px;">Wireless Headphones</h3><span class="text-xs bg-brand-500/20 text-brand-300 px-2 py-1 rounded-full">Electronics</span>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-gray-400 mb-3">
+         <i data-lucide="map-pin" class="w-3 h-3"></i><span>CS Department</span>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-gray-400 mb-4">
+         <i data-lucide="calendar" class="w-3 h-3"></i><span>20 Aug 2026</span>
+        </div>
+        <div class="flex items-center justify-between"><span class="text-xs bg-yellow-500/20 text-yellow-300 px-2 py-1 rounded-full">Verification Required</span> <button onclick="navigate('signin')" class="text-xs text-brand-400 hover:text-brand-300 font-medium">View Details →</button>
+        </div>
+       </div>
+      </div>
+      <div class="glass rounded-2xl overflow-hidden card-hover"><img data-template-id="found-img-2" class="canva-image w-full h-48 object-cover" loading="lazy" src="https://images.pexels.com/photos/915915/pexels-photo-915915.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="A brown leather wallet with cash and credit cards on a wooden surface">
+       <div class="p-5">
+        <div class="flex items-center justify-between mb-2">
+         <h3 data-template-id="found-name-2" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 19px;">Leather Wallet</h3><span class="text-xs bg-amber-500/20 text-amber-300 px-2 py-1 rounded-full">Accessories</span>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-gray-400 mb-3">
+         <i data-lucide="map-pin" class="w-3 h-3"></i><span>Library Building</span>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-gray-400 mb-4">
+         <i data-lucide="calendar" class="w-3 h-3"></i><span>19 Aug 2026</span>
+        </div>
+        <div class="flex items-center justify-between"><span class="text-xs bg-yellow-500/20 text-yellow-300 px-2 py-1 rounded-full">Verification Required</span> <button onclick="navigate('signin')" class="text-xs text-brand-400 hover:text-brand-300 font-medium">View Details →</button>
+        </div>
+       </div>
+      </div>
+      <div class="glass rounded-2xl overflow-hidden card-hover"><img data-template-id="found-img-3" class="canva-image w-full h-48 object-cover" loading="lazy" src="https://images.pexels.com/photos/2905238/pexels-photo-2905238.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Close-up of a fashionable blue backpack on a city sidewalk">
+       <div class="p-5">
+        <div class="flex items-center justify-between mb-2">
+         <h3 data-template-id="found-name-3" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 19px;">Blue Backpack</h3><span class="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded-full">Bags</span>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-gray-400 mb-3">
+         <i data-lucide="map-pin" class="w-3 h-3"></i><span>Student Center</span>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-gray-400 mb-4">
+         <i data-lucide="calendar" class="w-3 h-3"></i><span>18 Aug 2026</span>
+        </div>
+        <div class="flex items-center justify-between"><span class="text-xs bg-yellow-500/20 text-yellow-300 px-2 py-1 rounded-full">Verification Required</span> <button onclick="navigate('signin')" class="text-xs text-brand-400 hover:text-brand-300 font-medium">View Details →</button>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Success Stories -->
+   <section id="success-section" class="py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+     <h2 data-template-id="success-heading" class="canva-text font-display text-3xl md:text-4xl font-bold text-center mb-12" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Successfully Returned</h2>
+     <div class="grid md:grid-cols-3 gap-6">
+      <div class="glass rounded-2xl p-6 card-hover">
+       <div class="flex items-center gap-3 mb-3"><span class="text-2xl">🎧</span>
+        <h3 data-template-id="success-1-name" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 19px;">Wireless Headphones</h3>
+       </div>
+       <p class="text-xs text-gray-400 mb-3"><i data-lucide="map-pin" class="w-3 h-3 inline"></i> CS Department</p><span class="inline-flex items-center gap-1 text-xs bg-accent-500/20 text-accent-300 px-3 py-1 rounded-full"><i data-lucide="check-circle" class="w-3 h-3"></i> Successfully Returned</span>
+      </div>
+      <div class="glass rounded-2xl p-6 card-hover">
+       <div class="flex items-center gap-3 mb-3"><span class="text-2xl">👛</span>
+        <h3 data-template-id="success-2-name" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 19px;">Black Wallet</h3>
+       </div>
+       <p class="text-xs text-gray-400 mb-3"><i data-lucide="map-pin" class="w-3 h-3 inline"></i> Library</p><span class="inline-flex items-center gap-1 text-xs bg-accent-500/20 text-accent-300 px-3 py-1 rounded-full"><i data-lucide="check-circle" class="w-3 h-3"></i> Successfully Returned</span>
+      </div>
+      <div class="glass rounded-2xl p-6 card-hover">
+       <div class="flex items-center gap-3 mb-3"><span class="text-2xl">🎒</span>
+        <h3 data-template-id="success-3-name" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 19px;">Campus Backpack</h3>
+       </div>
+       <p class="text-xs text-gray-400 mb-3"><i data-lucide="map-pin" class="w-3 h-3 inline"></i> Cafeteria</p><span class="inline-flex items-center gap-1 text-xs bg-accent-500/20 text-accent-300 px-3 py-1 rounded-full"><i data-lucide="check-circle" class="w-3 h-3"></i> Successfully Returned</span>
+      </div>
+     </div>
+    </div>
+   </section><!-- Privacy -->
+   <section class="py-20 px-6 bg-dark-800/50">
+    <div class="max-w-4xl mx-auto text-center">
+     <div class="w-20 h-20 mx-auto mb-8 rounded-2xl bg-gradient-to-br from-brand-500/20 to-accent-500/20 flex items-center justify-center">
+      <i data-lucide="shield" class="w-10 h-10 text-brand-400"></i>
+     </div>
+     <h2 data-template-id="privacy-heading" class="canva-text font-display text-3xl md:text-4xl font-bold mb-6" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Your Privacy Comes First</h2>
+     <p data-template-id="privacy-desc" class="canva-text text-gray-400 max-w-2xl mx-auto mb-8" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 16px;">The person who found your item can provide their contact info, but Findora never reveals it publicly. Contact details are only shared after successful ownership verification.</p>
+     <div class="grid sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
+      <div class="glass rounded-xl p-4">
+       <i data-lucide="eye-off" class="w-5 h-5 text-brand-400 mx-auto mb-2"></i>
+       <p class="text-xs text-gray-300">Hidden Contact Info</p>
+      </div>
+      <div class="glass rounded-xl p-4">
+       <i data-lucide="lock" class="w-5 h-5 text-brand-400 mx-auto mb-2"></i>
+       <p class="text-xs text-gray-300">Verified Access Only</p>
+      </div>
+      <div class="glass rounded-xl p-4">
+       <i data-lucide="users" class="w-5 h-5 text-brand-400 mx-auto mb-2"></i>
+       <p class="text-xs text-gray-300">Trusted Community</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Developer -->
+   <section class="py-20 px-6">
+    <div class="max-w-4xl mx-auto">
+     <h2 data-template-id="dev-heading" class="canva-text font-display text-3xl font-bold text-center mb-12" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Meet The Developer</h2>
+     <div class="glass rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8"><img
+    data-template-id="dev-avatar"
+    class="canva-image w-32 h-32 rounded-2xl object-cover"
+    src="./ImageOfDeveloper/qadir.png"
+    alt="Qadir Bakhsh - AI Engineer"
+>
+      <div>
+       <h3 data-template-id="dev-name" class="canva-text text-xl font-bold mb-1" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">Qadir Bakhsh</h3>
+       <p data-template-id="dev-role" class="canva-text text-brand-400 font-medium text-sm mb-4" style="color: rgb(54, 165, 255); font-weight: 500; font-style: normal; font-size: 16px;">AI Engineer</p>
+       <p data-template-id="dev-bio" class="canva-text text-gray-400 text-sm leading-relaxed" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 16px;">Findora is a real-world problem-solving project focused on making university lost-and-found management smarter, safer, and more reliable.</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Contact -->
+   <section class="py-20 px-6 bg-dark-800/50">
+    <div class="max-w-3xl mx-auto">
+     <h2 data-template-id="contact-heading" class="canva-text font-display text-3xl font-bold text-center mb-4" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Have a Question?</h2>
+     <p data-template-id="contact-sub" class="canva-text text-center text-gray-400 mb-10" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 16px;">Have a question about Findora, need help with a reported item, or simply want to get in touch? Send us a message.</p>
+     <form id="contact-form" class="glass rounded-2xl p-8 space-y-5">
+      <div class="grid sm:grid-cols-2 gap-5">
+       <div><label data-template-id="contact-name-label" for="contact-name" class="canva-text text-sm font-medium text-gray-300 block mb-1.5" style="color: rgb(209, 213, 219); font-weight: 500; font-style: normal; font-size: 16px;">Name</label> <input id="contact-name" type="text" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 outline-none" required="">
+       </div>
+       <div><label data-template-id="contact-email-label" for="contact-email" class="canva-text text-sm font-medium text-gray-300 block mb-1.5" style="color: rgb(209, 213, 219); font-weight: 500; font-style: normal; font-size: 16px;">Email</label> <input id="contact-email" type="email" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 outline-none" required="">
+       </div>
+      </div>
+      <div><label data-template-id="contact-subject-label" for="contact-subject" class="canva-text text-sm font-medium text-gray-300 block mb-1.5" style="color: rgb(209, 213, 219); font-weight: 500; font-style: normal; font-size: 16px;">Subject</label> <input id="contact-subject" type="text" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 outline-none" required="">
+      </div>
+      <div><label data-template-id="contact-msg-label" for="contact-msg" class="canva-text text-sm font-medium text-gray-300 block mb-1.5" style="color: rgb(209, 213, 219); font-weight: 500; font-style: normal; font-size: 16px;">Message</label> <textarea id="contact-msg" rows="4" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 outline-none resize-none" required=""></textarea>
+      </div><button data-template-id="contact-btn" type="submit" class="canva-button btn-primary w-full py-3.5 rounded-xl text-white font-semibold" style="background: linear-gradient(135deg, rgb(12, 135, 235), rgb(7, 84, 163)); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Send Message</button>
+     </form>
+     <p class="text-center text-gray-500 text-sm mt-6">Or email us at <a href="mailto:your-email@example.com" class="text-brand-400 hover:underline">your-email@example.com</a></p>
+    </div>
+   </section><!-- CTA -->
+   <section class="py-20 px-6">
+    <div class="max-w-3xl mx-auto text-center">
+     <h2 data-template-id="cta-heading" class="canva-text font-display text-3xl md:text-4xl font-bold mb-8" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Your Lost Item Might Already Be Waiting For You.</h2><button onclick="navigate('signin')" data-template-id="cta-btn" class="canva-button btn-primary px-10 py-4 rounded-xl text-white font-semibold text-lg" style="background: linear-gradient(135deg, rgb(12, 135, 235), rgb(7, 84, 163)); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Get Started</button>
+    </div>
+   </section><!-- Footer -->
+   <footer data-template-id="footer-bg" class="canva-footer border-t border-gray-800 py-12 px-6" style="background: rgb(15, 18, 25);">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+     <div class="flex items-center gap-2">
+      <div class="w-7 h-7 rounded-lg btn-primary flex items-center justify-center">
+       <i data-lucide="search" class="w-3.5 h-3.5 text-white"></i>
+      </div><span class="font-bold">Findora</span>
+     </div>
+     <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-400"><a href="#" class="hover:text-white">About</a> <a href="#" class="hover:text-white">How It Works</a> <a href="#" class="hover:text-white">Privacy</a> <a href="#" class="hover:text-white">Contact</a>
+     </div>
+     <p data-template-id="footer-copy" class="canva-text text-xs text-gray-500" style="color: rgb(107, 114, 128); font-weight: 400; font-style: normal; font-size: 16px;">© 2026 Findora — University Lost &amp; Found</p>
+    </div>
+   </footer>
+  </div><!-- ========== SIGN IN PAGE ========== -->
+  <div id="page-signin" class="page">
+   <div class="min-h-screen flex items-center justify-center px-6 py-20">
+    <div class="w-full max-w-md">
+     <div class="text-center mb-8">
+      <div class="w-12 h-12 mx-auto mb-4 rounded-xl btn-primary flex items-center justify-center">
+       <i data-lucide="search" class="w-6 h-6 text-white"></i>
+      </div>
+      <h1 data-template-id="signin-title" class="canva-text font-display text-2xl font-bold mb-2" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 32px;">Welcome to Findora</h1>
+      <p data-template-id="signin-sub" class="canva-text text-gray-400 text-sm" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 16px;">Sign in to report or find lost items</p>
+     </div>
+     <form id="signin-form" class="glass rounded-2xl p-8 space-y-5">
+      <div><label data-template-id="signin-email-label" for="signin-email" class="canva-text text-sm font-medium text-gray-300 block mb-1.5" style="color: rgb(209, 213, 219); font-weight: 500; font-style: normal; font-size: 16px;">Email</label> <input id="signin-email" type="email" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 outline-none" required="">
+      </div>
+      <div><label data-template-id="signin-pass-label" for="signin-pass" class="canva-text text-sm font-medium text-gray-300 block mb-1.5" style="color: rgb(209, 213, 219); font-weight: 500; font-style: normal; font-size: 16px;">Password</label> <input id="signin-pass" type="password" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 outline-none" required="">
+      </div><button data-template-id="signin-btn" type="submit" class="canva-button btn-primary w-full py-3.5 rounded-xl text-white font-semibold" style="background: linear-gradient(135deg, rgb(12, 135, 235), rgb(7, 84, 163)); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Sign In</button>
+     </form>
+     <p class="text-center text-sm text-gray-500 mt-4">Demo: any email/password works</p>
+    </div>
+   </div>
+  </div><!-- ========== ROLE SELECTION ========== -->
+  <div id="page-role" class="page">
+   <div class="min-h-screen flex items-center justify-center px-6 py-20">
+    <div class="w-full max-w-2xl text-center">
+     <h1 data-template-id="role-title" class="canva-text font-display text-3xl font-bold mb-3" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 32px;">What brings you to Findora?</h1>
+     <p data-template-id="role-sub" class="canva-text text-gray-400 mb-12" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 16px;">Choose your role to get started</p>
+     <div class="grid sm:grid-cols-2 gap-6"><button onclick="selectRole('finder')" class="glass rounded-2xl p-8 text-left card-hover group">
+       <div class="w-14 h-14 mb-4 rounded-xl bg-brand-500/20 flex items-center justify-center group-hover:bg-brand-500/30 transition">
+        <i data-lucide="search" class="w-7 h-7 text-brand-400"></i>
+       </div><h3 data-template-id="role-finder-title" class="canva-text font-bold text-lg mb-2" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">🔎 I Lost an Item</h3><p data-template-id="role-finder-sub" class="canva-text text-sm text-gray-400" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 16px;">Search for something you lost.</p></button> <button onclick="selectRole('founder')" class="glass rounded-2xl p-8 text-left card-hover group">
+       <div class="w-14 h-14 mb-4 rounded-xl bg-accent-500/20 flex items-center justify-center group-hover:bg-accent-500/30 transition">
+        <i data-lucide="package" class="w-7 h-7 text-accent-400"></i>
+       </div><h3 data-template-id="role-founder-title" class="canva-text font-bold text-lg mb-2" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">📦 I Found an Item</h3><p data-template-id="role-founder-sub" class="canva-text text-sm text-gray-400" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 16px;">Report something you found.</p></button>
+     </div>
+    </div>
+   </div>
+  </div><!-- ========== FOUNDER DASHBOARD ========== -->
+  <div id="page-founder" class="page">
+   <div class="pt-8 pb-20 px-6">
+    <div class="max-w-6xl mx-auto"><!-- Header -->
+     <div class="flex items-center justify-between mb-8">
+      <div>
+       <h1 data-template-id="founder-welcome" class="canva-text font-display text-2xl font-bold mb-1" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 32px;">Welcome back!</h1>
+       <p class="text-sm text-gray-400">Founder Dashboard</p>
+      </div>
+      <div class="flex gap-3"><button onclick="showFounderSection('notifications')" class="relative glass rounded-xl px-4 py-2 text-sm hover:bg-white/10 transition"><i data-lucide="bell" class="w-4 h-4 inline"></i> <span id="notif-badge" class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full text-xs flex items-center justify-center hidden">1</span></button> <button onclick="navigate('history')" class="glass rounded-xl px-4 py-2 text-sm hover:bg-white/10 transition"><i data-lucide="clock" class="w-4 h-4 inline"></i> History</button> <button onclick="navigate('home')" class="glass rounded-xl px-4 py-2 text-sm hover:bg-white/10 transition"><i data-lucide="log-out" class="w-4 h-4 inline"></i></button>
+      </div>
+     </div><!-- Stats -->
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+      <div class="glass rounded-xl p-4 text-center">
+       <p class="text-2xl font-bold" id="f-stat-1">0</p>
+       <p class="text-xs text-gray-400 mt-1">Items Reported</p>
+      </div>
+      <div class="glass rounded-xl p-4 text-center">
+       <p class="text-2xl font-bold text-brand-400" id="f-stat-2">0</p>
+       <p class="text-xs text-gray-400 mt-1">Active Items</p>
+      </div>
+      <div class="glass rounded-xl p-4 text-center">
+       <p class="text-2xl font-bold text-yellow-400" id="f-stat-3">0</p>
+       <p class="text-xs text-gray-400 mt-1">Ownership Requests</p>
+      </div>
+      <div class="glass rounded-xl p-4 text-center">
+       <p class="text-2xl font-bold text-accent-400" id="f-stat-4">0</p>
+       <p class="text-xs text-gray-400 mt-1">Returned</p>
+      </div>
+     </div><!-- Sections -->
+     <div id="founder-report" class="mb-10">
+      <h2 data-template-id="founder-report-title" class="canva-text text-xl font-bold mb-6" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Report Found Item</h2>
+      <form id="report-form" class="glass rounded-2xl p-8 grid md:grid-cols-2 gap-5">
+       <div>
+        <label for="r-name" class="text-sm text-gray-300 block mb-1">Item Name</label><input id="r-name" type="text" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white outline-none" required="">
+       </div>
+       <div>
+        <label for="r-cat" class="text-sm text-gray-300 block mb-1">Category</label><select id="r-cat" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white outline-none"><option>Electronics</option><option>Accessories</option><option>Bags</option><option>Books</option><option>Clothing</option><option>Other</option></select>
+       </div>
+       <div class="md:col-span-2">
+        <label for="r-desc" class="text-sm text-gray-300 block mb-1">Description</label><textarea id="r-desc" rows="2" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white outline-none resize-none" required=""></textarea>
+       </div>
+       <div>
+        <label for="r-color" class="text-sm text-gray-300 block mb-1">Color</label><input id="r-color" type="text" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white outline-none">
+       </div>
+       <div>
+        <label for="r-loc" class="text-sm text-gray-300 block mb-1">Location Found</label><input id="r-loc" type="text" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white outline-none" required="">
+       </div>
+       <div>
+        <label for="r-date" class="text-sm text-gray-300 block mb-1">Date Found</label><input id="r-date" type="date" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white outline-none" required="">
+       </div>
+       <div>
+        <label for="r-time" class="text-sm text-gray-300 block mb-1">Time Found</label><input id="r-time" type="time" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white outline-none">
+       </div>
+       <div class="md:col-span-2">
+        <label for="r-details" class="text-sm text-gray-300 block mb-1">Identifying Details</label><input id="r-details" type="text" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white outline-none">
+       </div>
+       <div>
+        <label for="r-fname" class="text-sm text-gray-300 block mb-1">Your Name</label><input id="r-fname" type="text" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white outline-none" required="">
+       </div>
+       <div>
+        <label for="r-phone" class="text-sm text-gray-300 block mb-1">Phone Number</label><input id="r-phone" type="tel" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white outline-none" required="">
+       </div>
+       <div class="md:col-span-2">
+        <button data-template-id="report-btn" type="submit" class="canva-button btn-primary px-8 py-3.5 rounded-xl text-white font-semibold" style="background: linear-gradient(135deg, rgb(12, 135, 235), rgb(7, 84, 163)); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Report Found Item</button>
+       </div>
+      </form>
+     </div><!-- My Items -->
+     <div id="founder-items" class="mb-10">
+      <h2 class="text-xl font-bold mb-4">My Reported Items</h2>
+      <div id="my-items-list" class="space-y-3">
+       <p class="text-gray-500 text-sm text-center py-8">No items reported yet.</p>
+      </div>
+     </div><!-- Notifications -->
+     <div id="founder-notifications" class="hidden">
+      <h2 class="text-xl font-bold mb-4">Notifications</h2>
+      <div id="notif-list" class="space-y-3">
+       <p class="text-gray-500 text-sm text-center py-8">No notifications.</p>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div><!-- ========== FINDER DASHBOARD ========== -->
+  <div id="page-finder" class="page">
+   <div class="pt-8 pb-20 px-6">
+    <div class="max-w-6xl mx-auto">
+     <div class="flex items-center justify-between mb-8">
+      <div>
+       <h1 data-template-id="finder-title" class="canva-text font-display text-2xl font-bold mb-1" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 32px;">Find Your Lost Item</h1>
+       <p class="text-sm text-gray-400">Finder Dashboard</p>
+      </div>
+      <div class="flex gap-3"><button onclick="navigate('history')" class="glass rounded-xl px-4 py-2 text-sm hover:bg-white/10 transition"><i data-lucide="clock" class="w-4 h-4 inline"></i> History</button> <button onclick="navigate('home')" class="glass rounded-xl px-4 py-2 text-sm hover:bg-white/10 transition"><i data-lucide="log-out" class="w-4 h-4 inline"></i></button>
+      </div>
+     </div><!-- Search Form -->
+     <div class="glass rounded-2xl p-8 mb-10">
+      <h2 class="text-lg font-bold mb-5">Describe Your Lost Item</h2>
+      <form id="search-form" class="grid md:grid-cols-2 gap-5">
+       <div>
+        <label for="s-name" class="text-sm text-gray-300 block mb-1">Item Name</label><input id="s-name" type="text" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white outline-none" required="">
+       </div>
+       <div>
+        <label for="s-cat" class="text-sm text-gray-300 block mb-1">Category</label><select id="s-cat" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white outline-none"><option>Electronics</option><option>Accessories</option><option>Bags</option><option>Books</option><option>Clothing</option><option>Other</option></select>
+       </div>
+       <div class="md:col-span-2">
+        <label for="s-desc" class="text-sm text-gray-300 block mb-1">Description</label><textarea id="s-desc" rows="2" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white outline-none resize-none"></textarea>
+       </div>
+       <div>
+        <label for="s-loc" class="text-sm text-gray-300 block mb-1">Lost Location</label><input id="s-loc" type="text" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white outline-none">
+       </div>
+       <div>
+        <label for="s-date" class="text-sm text-gray-300 block mb-1">Lost Date</label><input id="s-date" type="date" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white outline-none">
+       </div>
+       <div class="md:col-span-2">
+        <button data-template-id="search-btn" type="submit" class="canva-button btn-primary px-8 py-3.5 rounded-xl text-white font-semibold" style="background: linear-gradient(135deg, rgb(12, 135, 235), rgb(7, 84, 163)); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Find My Item</button>
+       </div>
+      </form>
+     </div><!-- Results -->
+     <div id="search-results" class="hidden">
+      <h2 class="text-xl font-bold mb-4">Possible Matches</h2>
+      <div id="results-list" class="space-y-4"></div>
+     </div><!-- Verification -->
+     <div id="verify-section" class="hidden">
+      <div class="glass rounded-2xl p-8">
+       <h2 class="text-xl font-bold mb-2">Verify Your Ownership</h2>
+       <p class="text-sm text-gray-400 mb-6">Answer these questions to prove this item is yours.</p>
+       <form id="verify-form" class="space-y-5">
+        <div>
+         <label for="v-q1" class="text-sm text-gray-300 block mb-1">What specific detail can identify this item as yours?</label><textarea id="v-q1" rows="2" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white outline-none resize-none" required=""></textarea>
+        </div>
+        <div>
+         <label for="v-q2" class="text-sm text-gray-300 block mb-1">Where did you last remember having this item?</label><textarea id="v-q2" rows="2" class="w-full bg-dark-900/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white outline-none resize-none" required=""></textarea>
+        </div><button type="submit" class="btn-primary px-8 py-3.5 rounded-xl text-white font-semibold">Submit Verification</button>
+       </form>
+      </div>
+     </div><!-- Verified Contact -->
+     <div id="verified-contact" class="hidden">
+      <div class="glass rounded-2xl p-8 text-center">
+       <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-accent-500/20 flex items-center justify-center">
+        <i data-lucide="check-circle" class="w-8 h-8 text-accent-400"></i>
+       </div>
+       <h2 class="text-xl font-bold mb-2 text-accent-400">Ownership Verified!</h2>
+       <p class="text-sm text-gray-400 mb-6">Contact the founder to arrange item return.</p>
+       <div class="glass rounded-xl p-6 inline-block text-left">
+        <p class="text-sm text-gray-400 mb-1">Founder Name</p>
+        <p class="font-semibold mb-3" id="reveal-name">—</p>
+        <p class="text-sm text-gray-400 mb-1">Phone Number</p>
+        <p class="font-semibold" id="reveal-phone">—</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div><!-- ========== HISTORY PAGE ========== -->
+  <div id="page-history" class="page">
+   <div class="pt-8 pb-20 px-6">
+    <div class="max-w-4xl mx-auto">
+     <div class="flex items-center justify-between mb-8">
+      <h1 class="font-display text-2xl font-bold">History</h1><button onclick="navigate(currentRole||'home')" class="glass rounded-xl px-4 py-2 text-sm hover:bg-white/10 transition"><i data-lucide="arrow-left" class="w-4 h-4 inline"></i> Back</button>
+     </div>
+     <div id="history-list" class="space-y-3">
+      <p class="text-gray-500 text-sm text-center py-8">No history yet.</p>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script src="/_sdk/489148d8756906ef.editing_sdk.js" integrity="sha512-hxxSbMNp1t+UEu3j/dIQUU4MJnmsCo0Gs3iQVVS706vrCJ3Yt2+ySOlfJEaPyiyQVLjZRmn1dNVqg6M40VZZHQ=="></script>
+  <script src="/_sdk/b3bf9e8ac58e6ad6.data_sdk.js" integrity="sha512-otc1u9NYq9Ms5Jt//7vmhrrqR5CLPr8Jdgs6741gqniClfLMcfmC+jK/cKuQdhLv6G0esJ/FzaMS9tv0T/vj/Q=="></script>
+  <script>
+// State
+let currentRole = null;
+let allItems = [];
+let currentClaimItem = null;
+
+// Navigation
+function navigate(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const el = document.getElementById('page-' + page);
+    if (el) el.classList.add('active');
+    window.scrollTo(0, 0);
+}
+
+function scrollToSection(id) {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+}
+
+function selectRole(role) {
+    currentRole = role;
+    navigate(role);
+}
+
+function showFounderSection(section) {
+    const notif = document.getElementById('founder-notifications');
+    if (section === 'notifications') {
+        notif.classList.toggle('hidden');
+    }
+}
+
+function showToast(msg, type = 'success') {
+    const t = document.createElement('div');
+    t.className = 'toast ' + (type === 'success' ? 'bg-accent-600' : 'bg-red-600');
+    t.textContent = msg;
+    document.getElementById('toast-container').appendChild(t);
+    setTimeout(() => t.remove(), 3000);
+}
+
+// Data SDK
+const handler = {
+    onDataChanged(data) {
+        allItems = data;
+        renderFounderItems();
+        renderHistory();
+        updateFounderStats();
+    }
+};
+
+async function initApp() {
+    const r = await window.dataSdk.init(handler);
+    if (!r.isOk) console.error('SDK init failed');
+}
+initApp();
+
+function updateFounderStats() {
+    const mine = allItems.filter(i => i.status !== 'deleted');
+    document.getElementById('f-stat-1').textContent = mine.length;
+    document.getElementById('f-stat-2').textContent = mine.filter(i => i.status === 'active').length;
+    document.getElementById('f-stat-3').textContent = mine.filter(i => i.status === 'claimed').length;
+    document.getElementById('f-stat-4').textContent = mine.filter(i => i.status === 'returned').length;
+}
+
+function renderFounderItems() {
+    const list = document.getElementById('my-items-list');
+    const mine = allItems.filter(i => i.status !== 'deleted');
+    if (!mine.length) { list.innerHTML = '<p class="text-gray-500 text-sm text-center py-8">No items reported yet.</p>'; return; }
+    list.innerHTML = mine.map(item => `
+        <div class="glass rounded-xl p-4 flex items-center justify-between">
+            <div>
+                <p class="font-semibold">${item.item_name}</p>
+                <p class="text-xs text-gray-400">${item.category} • ${item.location}</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="text-xs px-2 py-1 rounded-full ${item.status==='returned'?'bg-accent-500/20 text-accent-300':item.status==='claimed'?'bg-yellow-500/20 text-yellow-300':'bg-brand-500/20 text-brand-300'}">${item.status}</span>
+                ${item.status==='claimed'?`<button onclick="verifyOwnership('${item.__backendId}')" class="text-xs bg-accent-600 text-white px-3 py-1.5 rounded-lg">Verify</button><button onclick="rejectClaim('${item.__backendId}')" class="text-xs bg-red-600/80 text-white px-3 py-1.5 rounded-lg">Reject</button>`:''}
+                ${item.status==='verified'?`<button onclick="markReturned('${item.__backendId}')" class="text-xs bg-accent-600 text-white px-3 py-1.5 rounded-lg">Mark Returned</button>`:''}
+            </div>
+        </div>
+    `).join('');
+
+    // Notifications
+    const claimed = mine.filter(i => i.status === 'claimed');
+    const badge = document.getElementById('notif-badge');
+    if (claimed.length) { badge.classList.remove('hidden'); badge.textContent = claimed.length; } else { badge.classList.add('hidden'); }
+    const nList = document.getElementById('notif-list');
+    if (claimed.length) {
+        nList.innerHTML = claimed.map(item => `
+            <div class="glass rounded-xl p-4">
+                <p class="font-semibold text-sm mb-1">🔔 Potential Owner Found</p>
+                <p class="text-xs text-gray-400 mb-3">Someone believes they own "${item.item_name}".</p>
+                <p class="text-xs text-gray-300 mb-1"><strong>Q1:</strong> ${(item.claimant_answers||'').split('|||')[0]||'—'}</p>
+                <p class="text-xs text-gray-300 mb-3"><strong>Q2:</strong> ${(item.claimant_answers||'').split('|||')[1]||'—'}</p>
+                <div class="flex gap-2">
+                    <button onclick="verifyOwnership('${item.__backendId}')" class="text-xs bg-accent-600 text-white px-3 py-1.5 rounded-lg">✓ Verify Ownership</button>
+                    <button onclick="rejectClaim('${item.__backendId}')" class="text-xs bg-red-600/80 text-white px-3 py-1.5 rounded-lg">✕ Reject</button>
+                </div>
+            </div>
+        `).join('');
+    } else { nList.innerHTML = '<p class="text-gray-500 text-sm text-center py-8">No notifications.</p>'; }
+}
+
+function renderHistory() {
+    const list = document.getElementById('history-list');
+    const hist = allItems.filter(i => i.status === 'returned' || i.status === 'verified');
+    if (!hist.length) { list.innerHTML = '<p class="text-gray-500 text-sm text-center py-8">No history yet.</p>'; return; }
+    list.innerHTML = hist.map(item => `
+        <div class="glass rounded-xl p-4 flex items-center justify-between">
+            <div>
+                <p class="font-semibold">${item.item_name}</p>
+                <p class="text-xs text-gray-400">${item.date_reported}</p>
+            </div>
+            <span class="text-xs px-2 py-1 rounded-full ${item.status==='returned'?'bg-accent-500/20 text-accent-300':'bg-brand-500/20 text-brand-300'}">${item.status==='returned'?'Successfully Returned':'Verified'}</span>
+        </div>
+    `).join('');
+}
+
+// Report Form
+document.getElementById('report-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type=submit]');
+    btn.disabled = true; btn.textContent = 'Reporting...';
+    const result = await window.dataSdk.create({
+        item_name: document.getElementById('r-name').value,
+        category: document.getElementById('r-cat').value,
+        location: document.getElementById('r-loc').value,
+        date_reported: document.getElementById('r-date').value || new Date().toISOString().split('T')[0],
+        status: 'active',
+        finder_name: document.getElementById('r-fname').value,
+        finder_contact: document.getElementById('r-phone').value,
+        claimant_answers: ''
+    });
+    btn.disabled = false; btn.textContent = 'Report Found Item';
+    if (result.isOk) { showToast('Item reported successfully!'); e.target.reset(); }
+    else showToast('Failed to report item', 'error');
+});
+
+// Search
+document.getElementById('search-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const name = document.getElementById('s-name').value.toLowerCase();
+    const cat = document.getElementById('s-cat').value;
+    const matches = allItems.filter(i => i.status === 'active' && (i.item_name.toLowerCase().includes(name) || i.category === cat));
+    const container = document.getElementById('results-list');
+    const section = document.getElementById('search-results');
+    if (!matches.length) { section.classList.remove('hidden'); container.innerHTML = '<p class="text-gray-400 text-sm text-center py-6">No matches found. Try different keywords.</p>'; return; }
+    section.classList.remove('hidden');
+    container.innerHTML = matches.map(item => `
+        <div class="glass rounded-xl p-5">
+            <div class="flex items-center justify-between mb-2">
+                <h3 class="font-semibold">${item.item_name}</h3>
+                <span class="text-xs bg-yellow-500/20 text-yellow-300 px-2 py-1 rounded-full">Verification Required</span>
+            </div>
+            <p class="text-xs text-gray-400 mb-1">${item.category} • ${item.location} • ${item.date_reported}</p>
+            <button onclick="claimItem('${item.__backendId}')" class="mt-3 btn-primary px-5 py-2 rounded-lg text-sm text-white font-medium">This Is My Item</button>
+        </div>
+    `).join('');
+});
+
+function claimItem(id) {
+    currentClaimItem = allItems.find(i => i.__backendId === id);
+    document.getElementById('search-results').classList.add('hidden');
+    document.getElementById('verify-section').classList.remove('hidden');
+}
+
+document.getElementById('verify-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    if (!currentClaimItem) return;
+    const answers = document.getElementById('v-q1').value + '|||' + document.getElementById('v-q2').value;
+    const updated = { ...currentClaimItem, status: 'claimed', claimant_answers: answers };
+    const r = await window.dataSdk.update(updated);
+    if (r.isOk) {
+        showToast('Verification request sent!');
+        document.getElementById('verify-section').classList.add('hidden');
+        e.target.reset();
+    } else showToast('Failed to submit', 'error');
+});
+
+async function verifyOwnership(id) {
+    const item = allItems.find(i => i.__backendId === id);
+    if (!item) return;
+    const r = await window.dataSdk.update({ ...item, status: 'verified' });
+    if (r.isOk) {
+        showToast('Ownership Verified Successfully!');
+        // If finder is viewing, show contact
+        if (currentRole === 'finder') showContact(item);
+    }
+}
+
+async function rejectClaim(id) {
+    const item = allItems.find(i => i.__backendId === id);
+    if (!item) return;
+    await window.dataSdk.update({ ...item, status: 'active', claimant_answers: '' });
+    showToast('Claim rejected');
+}
+
+async function markReturned(id) {
+    const item = allItems.find(i => i.__backendId === id);
+    if (!item) return;
+    await window.dataSdk.update({ ...item, status: 'returned' });
+    showToast('Item marked as returned!');
+}
+
+function showContact(item) {
+    document.getElementById('reveal-name').textContent = item.finder_name || '—';
+    document.getElementById('reveal-phone').textContent = item.finder_contact || '—';
+    document.getElementById('verified-contact').classList.remove('hidden');
+}
+
+// Check verified items for finder
+function checkVerifiedForFinder() {
+    if (currentRole !== 'finder') return;
+    const verified = allItems.find(i => i.status === 'verified' && i.claimant_answers);
+    if (verified) showContact(verified);
+}
+
+// Contact form
+document.getElementById('contact-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type=submit]');
+    btn.disabled = true; btn.textContent = 'Sending...';
+    // Simulate send
+    await new Promise(r => setTimeout(r, 800));
+    btn.disabled = false; btn.textContent = 'Send Message';
+    showToast('Message Sent Successfully!');
+    e.target.reset();
+});
+
+// Sign in form
+document.getElementById('signin-form').addEventListener('submit', e => {
+    e.preventDefault();
+    openFindoraAuth('login');
+});
+
+// Findora Pro authentication bridge — visual landing design remains intact.
+const authStyle=document.createElement('style');authStyle.textContent=`
+#fp-auth{position:fixed;inset:0;background:rgba(2,8,18,.78);backdrop-filter:blur(16px);display:none;align-items:center;justify-content:center;z-index:99999;padding:20px}
+#fp-auth.show{display:flex}.fp-box{width:min(470px,96vw);background:#0b1726;border:1px solid #28415b;border-radius:22px;box-shadow:0 30px 100px #0008;padding:26px;color:#edf6ff;font-family:Inter,system-ui,sans-serif}.fp-top{display:flex;justify-content:space-between;align-items:center}.fp-logo{font-size:25px;font-weight:900}.fp-logo span{color:#43d6b5}.fp-close{background:none;border:0;color:#8da3b8;font-size:26px}.fp-tabs{display:grid;grid-template-columns:1fr 1fr;background:#081321;border-radius:12px;padding:4px;margin:20px 0}.fp-tabs button{border:0;background:none;color:#91a5ba;padding:10px;border-radius:9px;font-weight:800}.fp-tabs button.on{background:#14283c;color:#fff}.fp-field{display:grid;gap:7px;margin:12px 0}.fp-field label{font-size:12px;color:#9db0c4;font-weight:800}.fp-field input{background:#07121f;border:1px solid #243c55;color:#fff;border-radius:10px;padding:12px;outline:0}.fp-field input:focus{border-color:#43d6b5}.fp-pass{display:grid;grid-template-columns:1fr auto;gap:8px}.fp-pass button{background:#11243a;border:1px solid #243c55;color:#a9bdcf;border-radius:9px}.fp-submit{width:100%;margin-top:8px;padding:13px;border:0;border-radius:11px;background:linear-gradient(135deg,#43d6b5,#5db8ff);color:#06111d;font-weight:900}.fp-msg{min-height:22px;color:#ff8f9d;font-size:12px;margin-top:10px}.fp-hint{font-size:11px;color:#71879c;line-height:1.5;margin-top:12px}.fp-strength{font-size:11px;color:#71879c}.fp-switch{font-size:12px;color:#8298ad;text-align:center;margin-top:14px}.fp-switch button{background:none;border:0;color:#62d9c1;font-weight:800}`;document.head.appendChild(authStyle);
+const authHTML=`<div id="fp-auth"><div class="fp-box"><div class="fp-top"><div class="fp-logo">find<span>ora</span></div><button class="fp-close" id="fp-close">×</button></div><div class="fp-tabs"><button id="fp-login-tab" class="on">Sign In</button><button id="fp-register-tab">Create Account</button></div><form id="fp-form"><div class="fp-field" id="fp-name-wrap" style="display:none"><label>FULL NAME</label><input id="fp-name" autocomplete="name" placeholder="Your name"></div><div class="fp-field"><label>EMAIL</label><input id="fp-email" type="email" autocomplete="email" placeholder="you@example.com" required></div><div class="fp-field"><label>PASSWORD</label><div class="fp-pass"><input id="fp-password" type="password" autocomplete="current-password" placeholder="Enter password" required><button type="button" id="fp-eye">Show</button></div><div class="fp-strength" id="fp-strength"></div></div><button class="fp-submit" id="fp-submit">Sign In Securely</button><div class="fp-msg" id="fp-msg"></div></form><div class="fp-hint">Protected session • 8-hour expiry • 5 failed attempts trigger a temporary account lock. Admin access is role-protected by the Java backend.</div></div></div>`;
+document.body.insertAdjacentHTML('beforeend',authHTML);
+const fpAuth=document.getElementById('fp-auth'),fpForm=document.getElementById('fp-form');let fpMode='login';
+function openFindoraAuth(mode='login'){fpMode=mode;fpAuth.classList.add('show');document.getElementById('fp-name-wrap').style.display=mode==='register'?'grid':'none';document.getElementById('fp-login-tab').classList.toggle('on',mode==='login');document.getElementById('fp-register-tab').classList.toggle('on',mode==='register');document.getElementById('fp-submit').textContent=mode==='register'?'Create Secure Account':'Sign In Securely';document.getElementById('fp-msg').textContent='';document.getElementById('fp-password').value='';}
+document.getElementById('fp-close').onclick=()=>fpAuth.classList.remove('show');document.getElementById('fp-login-tab').onclick=()=>openFindoraAuth('login');document.getElementById('fp-register-tab').onclick=()=>openFindoraAuth('register');document.getElementById('fp-eye').onclick=()=>{let x=document.getElementById('fp-password');x.type=x.type==='password'?'text':'password';document.getElementById('fp-eye').textContent=x.type==='password'?'Show':'Hide'};
+document.getElementById('fp-password').oninput=e=>{let p=e.target.value,ok=p.length>=8&&/[A-Z]/.test(p)&&/[a-z]/.test(p)&&/[0-9]/.test(p);document.getElementById('fp-strength').textContent=fpMode==='register'?(ok?'Strong password ✓':'Use 8+ chars with upper/lowercase and a number'):''};
+fpForm.onsubmit=async e=>{e.preventDefault();let msg=document.getElementById('fp-msg'),email=document.getElementById('fp-email').value.trim(),password=document.getElementById('fp-password').value;msg.textContent='';try{let endpoint=fpMode==='register'?'/api/auth/register':'/api/auth/login';let body=fpMode==='register'?{name:document.getElementById('fp-name').value.trim(),email,password}:{email,password};let r=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}),d=await r.json();if(!r.ok)throw Error(d.error||'Authentication failed');localStorage.setItem('findoraToken',d.token);localStorage.setItem('findoraUser',JSON.stringify(d.user));location.href=d.user.role==='ADMIN'?'/admin.html':'/dashboard.html'}catch(err){msg.textContent=err.message}};
+window.goFindora=path=>location.href=path;
+document.querySelectorAll('button').forEach(btn=>{const t=btn.textContent.trim();if(t==='Sign In')btn.onclick=()=>openFindoraAuth('login');if(t==='Get Started')btn.onclick=()=>openFindoraAuth('register');if(t.includes('Explore Found Items'))btn.onclick=()=>goFindora('/history.html')});
+// Animated counters
+function animateCounters() {
+    const targets = [{ el:'stat-1', val:1248 }, { el:'stat-2', val:936 }, { el:'stat-3', val:782 }];
+    targets.forEach(t => {
+        let current = 0;
+        const step = Math.ceil(t.val / 40);
+        const interval = setInterval(() => {
+            current += step;
+            if (current >= t.val) { current = t.val; clearInterval(interval); }
+            document.getElementById(t.el).textContent = current.toLocaleString();
+        }, 30);
+    });
+}
+animateCounters();
+
+// Periodic check for finder
+setInterval(() => { if (currentRole === 'finder') checkVerifiedForFinder(); }, 3000);
+
+lucide.createIcons();
+</script>
+ 
+</body></html>

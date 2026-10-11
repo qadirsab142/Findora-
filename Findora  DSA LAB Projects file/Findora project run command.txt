@@ -1,0 +1,4 @@
+Findora project run command:
+
+javac FindoraBackend.java
+java FindoraBackend

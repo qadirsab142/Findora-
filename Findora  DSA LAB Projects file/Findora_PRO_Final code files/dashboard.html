@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Findora — User Dashboard</title>
+<style>
+:root{--bg:#07111f;--panel:#0d1a2b;--panel2:#101f33;--line:#1d3047;--text:#eef6ff;--muted:#8fa4ba;--accent:#43d6b5;--accent2:#5f8cff;--danger:#ff6b7a;--warn:#f5bd5c}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% 0%,#102844 0,#07111f 45%,#050b14 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.shell{display:flex;min-height:100vh}.side{width:260px;border-right:1px solid var(--line);background:#081422cc;backdrop-filter:blur(18px);padding:26px 18px;position:fixed;inset:0 auto 0 0}.brand{font-weight:900;font-size:25px;letter-spacing:-1px;padding:0 10px 30px}.brand span{color:var(--accent)}.nav{display:grid;gap:8px}.nav button{background:transparent;border:0;color:#9fb0c3;text-align:left;padding:13px 14px;border-radius:12px}.nav button.active,.nav button:hover{background:#13263b;color:white}.main{margin-left:260px;width:calc(100% - 260px);padding:28px 34px}.top{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:28px}.eyebrow{color:var(--accent);font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}.h1{font-size:32px;font-weight:850;letter-spacing:-1px;margin:5px 0}.sub{color:var(--muted)}.profile{display:flex;gap:10px;align-items:center}.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06101b;font-weight:900}.btn{border:1px solid var(--line);background:#112237;color:white;border-radius:11px;padding:11px 15px;font-weight:700}.btn.primary{background:linear-gradient(135deg,#43d6b5,#58bfff);color:#06101b;border:0}.btn.danger{background:#2a131b;border-color:#54222d;color:#ff9daa}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}.card{background:linear-gradient(145deg,#0e1c2d,#0a1726);border:1px solid var(--line);border-radius:18px;padding:19px;box-shadow:0 14px 40px #0002}.metric .num{font-size:28px;font-weight:850;margin-top:8px}.metric small{color:var(--muted)}.layout{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}.section-title{font-size:18px;font-weight:800;margin-bottom:14px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:grid;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:12px;color:#a9bacd;font-weight:700}.field input,.field select,.field textarea{width:100%;background:#081421;border:1px solid #21364f;color:white;border-radius:10px;padding:11px 12px;outline:none}.field textarea{min-height:100px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#43d6b5}.actions{display:flex;gap:10px;justify-content:flex-end;margin-top:14px}.item{padding:14px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:15px}.item:last-child{border-bottom:0}.tag{display:inline-flex;padding:5px 8px;border-radius:999px;font-size:11px;font-weight:800;background:#14283d;color:#b9c9da}.tag.green{background:#10352e;color:#6ee7c9}.tag.yellow{background:#332914;color:#f4c56b}.tag.red{background:#351923;color:#ff9ba7}.empty{color:#73889e;text-align:center;padding:25px}.toast{position:fixed;right:25px;bottom:25px;background:#102438;border:1px solid #2b4762;padding:13px 17px;border-radius:12px;display:none;z-index:10}.modal{position:fixed;inset:0;background:#020813cc;backdrop-filter:blur(9px);display:none;place-items:center;z-index:20}.modal.show{display:grid}.modalbox{width:min(620px,92vw);background:#0c1a2a;border:1px solid #29415c;border-radius:20px;padding:24px}.modalhead{display:flex;justify-content:space-between;align-items:center}.close{background:transparent;border:0;color:#91a6bb;font-size:22px}.search{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:9px;margin-bottom:15px}.search input,.search select{background:#081421;border:1px solid #21364f;color:white;padding:11px;border-radius:10px}@media(max-width:1000px){.side{width:80px}.brand{font-size:0}.brand span{font-size:22px}.nav button{font-size:0;text-align:center}.main{margin-left:80px;width:calc(100% - 80px)}.grid{grid-template-columns:1fr 1fr}.layout{grid-template-columns:1fr}}@media(max-width:650px){.main{padding:18px}.grid{grid-template-columns:1fr}.formgrid,.search{grid-template-columns:1fr}.side{display:none}.main{margin-left:0;width:100%}}
+</style></head><body><div class="shell"><aside class="side"><div class="brand">find<span>ora</span></div><div class="nav"><button class="active" onclick="show('overview',this)">Overview</button><button onclick="show('lost',this)">Find My Item</button><button onclick="show('found',this)">Report Found</button><button onclick="show('activity',this)">My Activity</button><button onclick="location.href='/history.html'">Public History</button><button onclick="logout()">Sign out</button></div></aside><main class="main"><header class="top"><div><div class="eyebrow">Personal workspace</div><div class="h1" id="hello">Welcome back</div><div class="sub">Manage lost reports, found items and ownership claims from one place.</div></div><div class="profile"><div><b id="userEmail">—</b><div class="sub" id="userRole">User</div></div><div class="avatar" id="avatar">F</div></div></header>
+<section id="overview"><div class="grid"><div class="card metric"><small>My reports</small><div class="num" id="mReports">0</div></div><div class="card metric"><small>Active matches</small><div class="num" id="mMatches">0</div></div><div class="card metric"><small>Claims</small><div class="num" id="mClaims">0</div></div><div class="card metric"><small>Returned</small><div class="num" id="mReturned">0</div></div></div><div class="layout"><div class="card"><div class="section-title">Latest activity</div><div id="latest"></div></div><div class="card"><div class="section-title">Quick actions</div><p class="sub">Start a new report or search the live found-item index.</p><div style="display:grid;gap:10px"><button class="btn primary" onclick="show('lost')">🔎 Search for my lost item</button><button class="btn" onclick="show('found')">📦 Report an item I found</button><button class="btn" onclick="showMySuccessfulHistory()">✓ See My Successful History</button></div></div></div></section>
+<section id="lost" style="display:none"><div class="card"><div class="section-title">Find My Item</div><div class="sub" style="margin-bottom:15px">Search found reports using the details you remember. Exact details are not required.</div><div class="search"><input id="qName" placeholder="Item name"><select id="qCategory"><option value="">Any category</option><option>Electronics</option><option>Documents</option><option>Wallet & Cards</option><option>Keys</option><option>Bag</option><option>Jewelry</option><option>Other</option></select><input id="qLocation" placeholder="Found / lost location"><button class="btn primary" onclick="searchItems()">Search</button></div><div id="results" class="card" style="background:#081421"></div></div></section>
+<section id="found" style="display:none"><div class="card"><div class="section-title">Report a Found Item</div><div class="formgrid"><div class="field"><label>Item name *</label><input id="fName"></div><div class="field"><label>Category *</label><select id="fCategory"><option>Electronics</option><option>Documents</option><option>Wallet & Cards</option><option>Keys</option><option>Bag</option><option>Jewelry</option><option>Other</option></select></div><div class="field"><label>Color</label><input id="fColor"></div><div class="field"><label>Found location *</label><input id="fLocation"></div><div class="field"><label>Found date *</label><input id="fDate" type="date"></div><div class="field"><label>Found time</label><input id="fTime" type="time"></div><div class="field full"><label>Description</label><textarea id="fDescription" placeholder="Describe condition, markings or anything useful for identification."></textarea></div><div class="field full"><label>Finder contact</label><input id="fContact" placeholder="Phone number or preferred contact"></div></div><div class="actions"><button class="btn primary" onclick="submitFound()">Publish Found Report</button></div></div></section>
+<section id="activity" style="display:none"><div class="card"><div class="section-title">My Activity</div><div id="activityList"></div></div></section>
+<section id="myHistory" style="display:none">
+    <div class="card">
+        <div class="section-title">My Successful History</div>
+        <div class="sub" style="margin-bottom:15px">
+            Items you successfully returned and items you successfully received.
+        </div>
+        <div id="myHistoryList"></div>
+    </div>
+</section>
+</main></div><div class="modal" id="claimModal"><div class="modalbox"><div class="modalhead"><h2>Ownership verification</h2><button class="close" onclick="closeClaim()">×</button></div><p class="sub">Answer these private questions. Your answers are only used by the verification workflow.</p><div class="field"><label>What is a unique detail about this item?</label><input id="answer1"></div><br><div class="field"><label>Where / when did you last have it?</label><input id="answer2"></div><br><button class="btn primary" id="claimBtn">Submit secure claim</button></div></div><div class="toast" id="toast"></div><script>
+const token=localStorage.getItem('findoraToken');if(!token)location.href='/';let me=null,items=[];const $=id=>document.getElementById(id);
+async function api(path,opt={}){opt.headers={...(opt.headers||{}),'Authorization':'Bearer '+token,'Content-Type':'application/json'};const r=await fetch(path,opt);const d=await r.json();if(r.status===401){localStorage.clear();location.href='/';throw Error('Session expired')}if(!r.ok)throw Error(d.error||'Request failed');return d}
+function toast(x){$('toast').textContent=x;$('toast').style.display='block';setTimeout(()=>$('toast').style.display='none',2600)}
+function show(id,btn){
+    ['overview','lost','found','activity','myHistory'].forEach(x=>{
+        $(x).style.display=x===id?'block':'none';
+    });
+
+    document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));
+
+    if(btn)btn.classList.add('active');
+
+    if(id==='activity')renderActivity();
+    if(id==='myHistory')renderMySuccessfulHistory();
+}
+
+async function boot(){try{const d=await api('/api/me');me=d.user;$('hello').textContent='Welcome, '+(me.name||me.email.split('@')[0]);$('userEmail').textContent=me.email;$('userRole').textContent=me.role;$('avatar').textContent=(me.name||me.email)[0].toUpperCase();await refresh()}catch(e){console.error(e)}}
+async function refresh(){const d=await api('/api/items/mine');items=d.items;let reports=items.length,claims=items.filter(i=>['claimed','verified','returned'].includes(i.status)).length,returned=items.filter(i=>i.status==='returned').length;$('mReports').textContent=reports;$('mClaims').textContent=claims;$('mReturned').textContent=returned;$('mMatches').textContent=items.filter(i=>i.status==='active').length;renderLatest()}
+function status(s){return `<span class="tag ${s==='returned'||s==='verified'?'green':s==='claimed'?'yellow':s==='rejected'?'red':''}">${s.toUpperCase()}</span>`}
+function renderLatest(){let a=items.slice(-5).reverse();$('latest').innerHTML=a.length?a.map(i=>`<div class="item"><div><b>${esc(i.itemName)}</b><div class="sub">${esc(i.location)} · ${esc(i.dateReported)}</div></div>${status(i.status)}</div>`).join(''):'<div class="empty">No activity yet.</div>'}
+async function searchItems(){let n=encodeURIComponent($('qName').value),c=encodeURIComponent($('qCategory').value),l=encodeURIComponent($('qLocation').value);try{let d=await api(`/api/items/search?name=${n}&category=${c}&location=${l}`);$('results').innerHTML=d.items.length?d.items.map(i=>`<div class="item"><div><b>${esc(i.itemName)}</b> ${status(i.status)}<div class="sub">${esc(i.category)} · ${esc(i.color||'Color not listed')} · ${esc(i.location)} · ${esc(i.dateReported)}</div><div style="margin-top:6px">${esc(i.description||'No description')}</div></div><button class="btn primary" onclick="claim(${i.id})">This may be mine</button></div>`).join(''):'<div class="empty">No matching active found reports.</div>'}catch(e){toast(e.message)}}
+function claim(id){$('claimModal').classList.add('show');$('claimBtn').onclick=async()=>{try{await api('/api/items/'+id+'/claim',{method:'POST',body:JSON.stringify({answer1:$('answer1').value,answer2:$('answer2').value})});closeClaim();toast('Claim submitted for review');await refresh()}catch(e){toast(e.message)}}}
+function closeClaim(){$('claimModal').classList.remove('show');$('answer1').value='';$('answer2').value=''}
+async function submitFound(){const b={itemName:$('fName').value,category:$('fCategory').value,color:$('fColor').value,location:$('fLocation').value,dateReported:$('fDate').value,timeFound:$('fTime').value,description:$('fDescription').value,finderContact:$('fContact').value};if(!b.itemName||!b.location||!b.dateReported){toast('Please complete the required fields');return}try{await api('/api/items',{method:'POST',body:JSON.stringify(b)});toast('Found item report published');document.querySelectorAll('#found input,#found textarea').forEach(x=>x.value='');await refresh();show('overview')}catch(e){toast(e.message)}}
+function renderActivity(){
+
+    $('activityList').innerHTML = items.length
+    ? items.slice().reverse().map(i => {
+
+        const isFinder = i.finderEmail === me?.email;
+        const isClaimant = i.claimantEmail === me?.email;
+        const hasClaim = i.claimantEmail && i.status === 'claimed';
+
+        return `
+        <div class="item">
+
+            <div style="flex:1">
+
+                <b>${esc(i.itemName)}</b>
+
+                <div class="sub">
+                    ${esc(i.category)} ·
+                    ${esc(i.location)} ·
+                    ${esc(i.dateReported)}
+                </div>
+
+                ${
+                    hasClaim && isFinder
+                    ? `
+                    <div style="
+                        margin-top:10px;
+                        padding:12px;
+                        background:#102438;
+                        border:1px solid #29415c;
+                        border-radius:10px;
+                    ">
+
+                        <b>Ownership Claim Received</b>
+
+                        <div class="sub" style="margin-top:5px">
+                            Claimant: ${esc(i.claimantEmail)}
+                        </div>
+
+                        <div style="margin-top:8px">
+                            <b>Claimant's unique detail:</b>
+                            <div class="sub">${esc(i.answer1 || 'Not provided')}</div>
+                        </div>
+
+                        <div style="margin-top:8px">
+                            <b>Verification answer:</b>
+                            <div class="sub">${esc(i.answer2 || 'Not provided')}</div>
+                        </div>
+
+                        <div style="margin-top:10px">
+                            <button
+                                class="btn primary"
+                                onclick="finderApprove(${i.id})">
+                                ✓ Approve Claim
+                            </button>
+                        </div>
+
+                    </div>
+                    `
+                    : ''
+                }
+
+                ${
+                    i.status === 'verified' &&
+                    i.claimantEmail &&
+                    isFinder
+                    ? `
+                    <div style="
+                        margin-top:10px;
+                        padding:12px;
+                        background:#10352e;
+                        border:1px solid #1d5a4c;
+                        border-radius:10px;
+                    ">
+                        <b>✓ You approved this ownership claim.</b>
+
+                        <div class="sub" style="margin-top:5px">
+                            The claimant has been successfully verified.
+                        </div>
+                    </div>
+                    `
+                    : ''
+                }
+
+                ${
+                    (i.status === 'verified' || i.status === 'returned') &&
+                    i.claimantEmail &&
+                    isClaimant
+                    ? `
+                    <div style="
+                        margin-top:10px;
+                        padding:14px;
+                        background:#10352e;
+                        border:1px solid #1d5a4c;
+                        border-radius:10px;
+                    ">
+                        <b>✓ Claim Approved</b>
+
+                        <div class="sub" style="margin-top:6px">
+                            Your ownership claim has been approved successfully.
+                        </div>
+
+                        <div style="
+                            margin-top:10px;
+                            padding:11px;
+                            background:#0b241f;
+                            border-radius:8px;
+                        ">
+                            <b>Finder Contact</b>
+
+                            <div style="
+                                margin-top:6px;
+                                font-size:17px;
+                                font-weight:800;
+                            ">
+                                ${esc(i.finderContact || 'Contact number not provided')}
+                            </div>
+                        </div>
+
+                    </div>
+                    `
+                    : ''
+                }
+
+            </div>
+
+            ${status(i.status)}
+
+        </div>
+        `;
+    }).join('')
+    : '<div class="empty">Nothing recorded yet.</div>';
+}
+async function finderApprove(id){
+
+    if(!confirm('Approve this ownership claim?')) return;
+
+    try{
+
+        await api('/api/items/' + id + '/finder-approve', {
+            method:'POST',
+            body:JSON.stringify({})
+        });
+
+        toast('Claim approved successfully');
+
+        await refresh();
+
+        show('activity');
+
+    }catch(e){
+
+        toast(e.message);
+
+    }
+}
+function showMySuccessfulHistory(){
+    show('myHistory');
+    renderMySuccessfulHistory();
+}
+
+function renderMySuccessfulHistory(){
+
+    if(!me){
+        $('myHistoryList').innerHTML =
+            '<div class="empty">User information not available.</div>';
+        return;
+    }
+
+    const myEmail = (me.email || '').toLowerCase();
+
+    const successful = items.filter(i => {
+
+        const isMyItem =
+            (i.finderEmail || '').toLowerCase() === myEmail ||
+            (i.claimantEmail || '').toLowerCase() === myEmail;
+
+        return i.status === 'returned' && isMyItem;
+    });
+
+    $('myHistoryList').innerHTML = successful.length
+        ? successful.slice().reverse().map(i => `
+
+            <div class="item">
+
+                <div>
+
+                    <b>${esc(i.itemName)}</b>
+
+                    <div class="sub">
+                        ${esc(i.category)} · ${esc(i.location)}
+                    </div>
+
+                    <div class="sub">
+                        Found/Reported: ${esc(i.dateReported)}
+                    </div>
+
+                    <div class="sub">
+                        Successfully Returned: ${esc(i.returnedAt || '—')}
+                    </div>
+
+                    ${
+                        i.finderEmail &&
+                        i.finderEmail.toLowerCase() === myEmail
+                        ? `
+                        <div class="sub" style="margin-top:6px">
+                            Role: Finder
+                        </div>
+                        `
+                        : ''
+                    }
+
+                    ${
+                        i.claimantEmail &&
+                        i.claimantEmail.toLowerCase() === myEmail
+                        ? `
+                        <div class="sub" style="margin-top:6px">
+                            Role: Claimant
+                        </div>
+                        `
+                        : ''
+                    }
+
+                    ${
+                        i.description
+                        ? `<div style="margin-top:6px">${esc(i.description)}</div>`
+                        : ''
+                    }
+
+                </div>
+
+                ${status(i.status)}
+
+            </div>
+
+        `).join('')
+
+        : '<div class="empty">No successful history yet.</div>';
+}
+function logout(){
+    fetch('/api/auth/logout',{
+        method:'POST',
+        headers:{
+            Authorization:'Bearer '+token
+        }
+    }).finally(()=>{
+        localStorage.clear();
+        location.href='/';
+    });
+}
+
+function esc(s){
+    return String(s ?? '').replace(/[&<>'"]/g,c=>({
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        "'":'&#39;',
+        '"':'&quot;'
+    }[c]));
+}
+
+boot();
+</script>
+</body>
+</html>
